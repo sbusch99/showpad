@@ -1,0 +1,78 @@
+{
+  "shared": {
+    "button": {
+      "add": "Add",
+      "apply": "Apply",
+      "back": "Back",
+      "cancel": "Cancel",
+      "close": "Close",
+      "delete": "Delete",
+      "done": "Done",
+      "edit": "Edit",
+      "finish": "Finish",
+      "next": "Next",
+      "ok": "OK",
+      "reset": "Reset",
+      "save": "Save",
+      "saveAs": "Save As",
+      "submit": "Submit",
+      "warning": "Warning"
+    },
+    "dateTime": {
+      "dash": {
+        "date": "yyyy-LL-dd",
+        "dateTime": "yyyy-LL-dd HH:mm",
+        "dateTimeSec": "yyyy-LL-dd HH:mm:ss",
+        "time": "HH:mm"
+      },
+      "slash": {
+        "date": "LL/dd/yyyy",
+        "dateTime": "LL/dd/yyyy hh:mm a",
+        "dateTimeSec": "LL/dd/yyyy hh:mm:ss a",
+        "time": "hh:mm a"
+      }
+    },
+    "dialog": {
+      "title": {
+        "confirmation": "Confirmation",
+        "error": "Error",
+        "onOnly": "Information",
+        "warning": "Warning"
+      }
+    },
+    "snack": {
+      "close": "Close",
+      "error": "Error",
+      "redo": "Redo",
+      "undo": "Undo"
+    },
+    "table": {
+      "filter": "Filter",
+      "filter-count": "Filter count: {{count}}",
+      "filter-no-data": "No data matching the filter: {{filter}}",
+      "columns": {
+        "action": "Action"
+      },
+      "mat-paginator": {
+        "of": "of {{value}}",
+        "page": "Page"
+      },
+      "settings": {
+        "reset": "Reset",
+        "show-all": "Show all",
+        "title": "Show/hide a table column",
+        "tooltip": "Show/hide a table column"
+      }
+    },
+    "theme": {
+      "dark": "Dark",
+      "light": "Light"
+    },
+    "login": {
+      "button": "Go",
+      "userName": "User Name",
+      "password": "Password",
+      "logout-warning": "Due to inactivity, you will be logged out shortly"
+    }
+  }
+}

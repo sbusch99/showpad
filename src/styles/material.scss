@@ -1,0 +1,197 @@
+.mat-tab-link,
+.mat-tab-label {
+  min-width: 100px !important;
+}
+
+.mat-spinner.spinner-centered {
+  position: fixed !important;
+  z-index: 999;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.mat-form-field {
+  &.form-field-w100 {
+    width: 100%;
+  }
+
+  &.form-field-in-table {
+    margin-bottom: 0;
+
+    .mat-form-field-wrapper {
+      margin: -12px 0;
+    }
+  }
+
+  .mat-form-field-wrapper {
+    width: 100%;
+  }
+}
+
+table.mat-table {
+  &.standard-table {
+    width: 100%;
+
+    /*
+     * To minimize heights for the header, cells and icons:
+     * class="standard-table min-table [min-header | min-cell | min-icon]"
+     */
+    &.min-table,
+    &.min-all {
+      &.min-header,
+      &.min-all {
+        tr.mat-header-row {
+          height: 36px; // match footer height
+        }
+      }
+
+      &.min-cell,
+      &.min-all {
+        tr td.mat-cell {
+          padding-top: 3px;
+          padding-bottom: 3px;
+        }
+      }
+
+      &.min-icon,
+      &.min-all {
+        tr td.mat-column-action {
+          padding-bottom: 8px;
+
+          .mat-icon-button {
+            height: 22px;
+            line-height: 22px;
+          }
+        }
+      }
+    }
+
+    // a table inside a dialog unnecessarily scrolls and isn't center positioned
+    &.inside-dialog {
+      margin: 0 -8px 8px 0;
+    }
+
+    tr {
+      &.mat-row {
+        height: unset; /* let the td decide */
+
+        &.scroll-to {
+          background: rgba(230, 230, 250, 0.5);
+
+          &.bolder {
+            font-weight: bolder;
+          }
+        }
+      }
+
+      th,
+      td {
+        padding-right: 8px;
+
+        &.th-right,
+        &.td-right {
+          text-align: right;
+        }
+
+        .mat-icon-button {
+          height: 30px;
+          width: 30px;
+          line-height: 30px;
+          margin-top: -2px;
+
+          .mat-icon {
+            vertical-align: top;
+          }
+        }
+
+        .mat-button,
+        .mat-stroked-button,
+        .mat-raised-button,
+        .mat-flat-button {
+          line-height: 24px;
+          padding: 0 4px;
+        }
+      }
+
+      th {
+        &.th-right {
+          .mat-sort-header-container {
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      td {
+        font-size: 12px;
+
+        .mat-icon-button {
+          .mat-icon {
+            opacity: 0.5;
+          }
+        }
+
+        &.mat-cell {
+          overflow: initial;
+          vertical-align: top;
+          height: unset; /* let the natural height decide */
+          padding-top: 6px;
+          padding-bottom: 6px;
+        }
+
+        &.mat-column-action {
+          > div {
+            button.mat-button-base:not(:last-child) {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+
+      &.mat-footer-row {
+        height: unset; /* footer height reduced from 48 px */
+
+        td {
+          height: 36px;
+          vertical-align: middle;
+          font-weight: bold;
+
+          .mat-paginator {
+            height: 30px;
+
+            .mat-paginator-outer-container {
+              height: inherit;
+
+              .mat-paginator-container {
+                min-height: inherit;
+                height: inherit;
+                margin-top: 12px;
+              }
+            }
+          }
+
+          // No rows found
+          .empty {
+            font-size: 18px;
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+}
+
+// standardize horizontal radio buttons. TODO styling for vertical dudes.
+.mat-radio-group {
+  &.horizontal-buttons {
+    .mat-radio-button ~ .mat-radio-button {
+      margin-left: 16px;
+    }
+  }
+
+  &.margin-bottom {
+    margin-bottom: 8px;
+  }
+}

@@ -1,0 +1,131 @@
+pre {
+  font-size: 8px;
+  white-space: pre-wrap;
+}
+
+/* debug stuff can be kept in the code with .none - use debxx so it's easily grep-able */
+.debxx {
+  border: 4px dotted hotpink;
+
+  &.red {
+    border: 4px solid red;
+  }
+  &.orange {
+    border: 4px solid orange;
+  }
+  &.yellow {
+    border: 4px solid yellow;
+  }
+  &.green {
+    border: 4px solid green;
+  }
+  &.blue {
+    border: 4px solid blue;
+  }
+  &.purple {
+    border: 4px solid purple;
+  }
+  &.none {
+    border: none !important;
+  }
+  &.dashed {
+    border-style: dashed;
+  }
+  &.dotted {
+    border-style: dotted;
+  }
+  &.solid {
+    border-style: solid;
+  }
+}
+
+.error-message {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px #dcdcdc;
+  color: red;
+  font-size: 24px;
+  line-height: 1.5;
+
+  table {
+    td {
+      padding-right: 10px;
+    }
+  }
+
+  pre {
+    font-size: 12px;
+  }
+}
+
+
+// <h2 class='ellipsis'><span>stuff</span></h2> will force ellipsis
+td,
+h3,
+h2 {
+  &.ellipsis {
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+    }
+  }
+}
+
+.smaller-font {
+  font-size: var(--smaller-font);
+}
+
+span.padding,
+i.padding {
+  &.left {
+    padding-left: 4px;
+  }
+
+  &.right {
+    padding-right: 4px;
+  }
+}
+
+.lower-opacity {
+  opacity: var(--lower-opacity);
+}
+
+.settings-cog {
+  font-size: 20px; // same size as google calendar's cog
+}
+
+// Standard padding on content below the heading
+.margin-padding {
+  margin: var(--margin-padding);
+}
+
+.margin-padding-no-top {
+  margin: var(--margin-padding-no-top);
+}
+
+div.counts,
+span.counts {
+  font-size: smaller;
+  padding-left: 8px;
+  opacity: var(--lower-opacity);
+
+  &.no-padding {
+    padding-left: 0;
+    text-align: right;
+  }
+}
+
+.div-std-margins > div:not(:last-child) {
+  margin-right: var(--std-margin-between);
+}
+
+ul {
+  padding-left: 1rem; // generic use of <ul><li>: the standard left padding is way too much
+}
+
+.component-title {
+  font-weight: bold;
+}

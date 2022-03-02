@@ -1,0 +1,12 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  app-root > div {
+    height: 100%; // convenience: no need to set in app.component.html
+  }
+}
