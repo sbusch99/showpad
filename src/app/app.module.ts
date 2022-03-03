@@ -10,13 +10,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { GlobalErrorHandler } from './shared/error-handler/error-handler';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
-import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import { metaReducers, reducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
 
 const loggerConfig: INGXLoggerConfig = {
   level: environment.ngxLoggerLevel,
@@ -54,12 +50,13 @@ export const translateLanguages: string[] = ['en', 'es'];
       loader: translateProvider,
       defaultLanguage: translateLanguages[0],
     }),
-    SharedModule,
     StoreModule.forRoot(reducers, {
-      metaReducers
+      metaReducers,
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects]), // remove me
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     {

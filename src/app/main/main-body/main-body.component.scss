@@ -1,0 +1,25 @@
+:host {
+  height: 100%;
+  padding: 0 16px 16px;
+}
+
+.play {
+  &.play {
+    color: red;
+  }
+
+  &.pause {
+    color: green;
+  }
+}
+
+.mat-form-field {
+  height: 42px;
+  width: 120px;
+}
+
+.card {
+  &.video {
+    margin-top: 12px;
+  }
+}

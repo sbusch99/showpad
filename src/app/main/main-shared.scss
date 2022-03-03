@@ -1,0 +1,27 @@
+:host {
+  height: 100%;
+}
+
+.vert-buttons {
+  button.mat-button-base {
+    font-size: 40px;
+    padding: 16px;
+    text-align: start;
+    font-weight: 400;
+    min-height: 72px;
+
+    &.selected {
+      color: green;
+      font-weight: 500;
+    }
+
+    i {
+      padding-right: 4px;
+      width: 64px;
+    }
+  }
+
+  button + button {
+    margin-top: 16px;
+  }
+}

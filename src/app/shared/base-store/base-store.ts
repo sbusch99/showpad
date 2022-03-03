@@ -29,7 +29,8 @@ export class BaseStore<Model extends AnyObject> {
     const { storeKey, modelDefault, baseStoreService } = this;
 
     // lint complains, even thought modelDefault forces a non-null response
-    this.store = baseStoreService.getObject<Model>(storeKey, modelDefault) || modelDefault;
+    this.store =
+      baseStoreService.getObject<Model>(storeKey, modelDefault) || modelDefault;
   }
 
   storeSave(): void {

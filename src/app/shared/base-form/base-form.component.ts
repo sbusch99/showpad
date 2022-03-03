@@ -7,7 +7,9 @@ import { BaseFormInit, BaseFormSuper } from './base-form.model';
 /**
  * Not an Angular Component, but a base class for safe form building
  */
-export class BaseFormComponent<FormModel extends AnyObject> extends BaseSubscriptionsDirective {
+export class BaseFormComponent<
+  FormModel extends AnyObject,
+> extends BaseSubscriptionsDirective {
   form!: FormGroup;
   model!: FormModel;
 

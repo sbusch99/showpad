@@ -1,9 +1,8 @@
 import { SortDirection } from '@angular/material/sort';
 
-export type LocalStorageKey = 'language' | 'lastRoute' | 'theme';
+export type LocalStorageKey = 'lastRoute' | 'theme';
 
 export const localStorageKeys: Record<LocalStorageKey, string> = {
-  language: 'language',
   lastRoute: 'last-route',
   theme: 'docs-theme-storage-current',
 };

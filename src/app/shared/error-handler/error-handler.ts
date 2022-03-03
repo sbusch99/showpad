@@ -7,7 +7,10 @@ import { NGXLogger } from 'ngx-logger';
  */
 @Injectable()
 export class GlobalErrorHandler extends ErrorHandler {
-  constructor(private readonly logger: NGXLogger, private readonly ngZone: NgZone) {
+  constructor(
+    private readonly logger: NGXLogger,
+    private readonly ngZone: NgZone,
+  ) {
     super();
   }
 

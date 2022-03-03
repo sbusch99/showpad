@@ -24,7 +24,11 @@ export interface HttpOptionsGet {
   params?:
     | HttpParams
     | {
-        [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+        [param: string]:
+          | string
+          | number
+          | boolean
+          | ReadonlyArray<string | number | boolean>;
       };
   reportProgress?: boolean;
   responseType?: 'json';
@@ -42,7 +46,11 @@ export interface HttpOptionsDelete {
   params?:
     | HttpParams
     | {
-        [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+        [param: string]:
+          | string
+          | number
+          | boolean
+          | ReadonlyArray<string | number | boolean>;
       };
   reportProgress?: boolean;
   responseType?: 'json';

@@ -16,7 +16,10 @@ import { BaseTableOptions, BaseTableView } from './base-table.model';
  * this is an abstract class. get items needs to be implemented
  */
 @Directive()
-export abstract class BaseTableDirective<DataModel extends AnyObject, ColumnView>
+export abstract class BaseTableDirective<
+    DataModel extends AnyObject,
+    ColumnView,
+  >
   extends BaseSubscriptionsDirective
   implements HasTableStore<ColumnView>, OnInit
 {
@@ -26,7 +29,9 @@ export abstract class BaseTableDirective<DataModel extends AnyObject, ColumnView
   readonly selection = new SelectionModel<DataModel>(true, []);
 
   // this is protected b/c it's an abstract class
-  protected constructor(public readonly baseOptions: Partial<BaseTableOptions<ColumnView>> = {}) {
+  protected constructor(
+    public readonly baseOptions: Partial<BaseTableOptions<ColumnView>> = {},
+  ) {
     super();
   }
 
@@ -106,7 +111,10 @@ export abstract class BaseTableDirective<DataModel extends AnyObject, ColumnView
     const allReset = option === 'all' || option === 'reset';
 
     // Fail-safe test to make sure this only executes appropriately.
-    if (Array.isArray(defaultHidden) && (!items[0].value.formControl || allReset)) {
+    if (
+      Array.isArray(defaultHidden) &&
+      (!items[0].value.formControl || allReset)
+    ) {
       const { tableStore: table } = this;
 
       if (allReset) {
@@ -127,13 +135,17 @@ export abstract class BaseTableDirective<DataModel extends AnyObject, ColumnView
         } else {
           value.formControl = new FormControl(!value.hidden);
 
-          value.formControl.valueChanges.pipe(takeUntil(destroy$)).subscribe((v: boolean) => {
-            value.hidden = !v;
-            table.hidden = items.filter((f) => f.value.hidden).map((f) => f.key);
-            this.tableStore = table;
-            this.tableSave();
-            this.setDisplayedColumns();
-          });
+          value.formControl.valueChanges
+            .pipe(takeUntil(destroy$))
+            .subscribe((v: boolean) => {
+              value.hidden = !v;
+              table.hidden = items
+                .filter((f) => f.value.hidden)
+                .map((f) => f.key);
+              this.tableStore = table;
+              this.tableSave();
+              this.setDisplayedColumns();
+            });
         }
       }
     }

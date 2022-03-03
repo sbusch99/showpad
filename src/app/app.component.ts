@@ -1,28 +1,43 @@
-import { Component } from '@angular/core';
-import { delay, EMPTY, startWith, concat, merge, tap, map } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { NGXLogger } from 'ngx-logger';
+import { filter } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { localStorageKeys } from './shared/local-storage-keys';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  constructor() {
-    // helper method
-    const delayedMessage = (message: string, delayedTime: number) =>
-      EMPTY.pipe(
-        startWith(message),
-        map((v) => v + ' ' + delayedTime),
-        delay(delayedTime),
-      );
+export class AppComponent implements OnInit {
+  constructor(
+    private readonly translate: TranslateService,
+    private readonly logger: NGXLogger,
+    private readonly router: Router,
+  ) {}
 
-    const mergeMessage = 'Merge message ';
-    merge(
-      delayedMessage(mergeMessage + 1, 1000),
-      delayedMessage(mergeMessage + 2, 3000),
-      delayedMessage(mergeMessage + 3, 2000),
-      delayedMessage(mergeMessage + 4, 1000),
-      delayedMessage(mergeMessage + 5, 4000),
-    ).subscribe((message: any) => console.log(message));
+  ngOnInit(): void {
+    const { translate } = this;
+    const langs: string[] = ['en', 'es'];
+
+    translate.onDefaultLangChange.subscribe(() => this.login());
+    translate.addLangs(langs);
+    translate.setDefaultLang(langs[0]);
+  }
+
+  private login(): void {
+    const { router } = this;
+
+    // Each time the route changes, store the route.
+    router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => this.storeLastRoute());
+  }
+
+  private storeLastRoute(): void {
+    if (location.pathname !== '/') {
+      localStorage.setItem(localStorageKeys.lastRoute, location.pathname);
+    }
   }
 }
