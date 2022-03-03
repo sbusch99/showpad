@@ -10,7 +10,7 @@ export interface BaseTableOptions<ColumnView> {
 }
 
 /**
- * As a best process, the model for each row should always contain the raw data. The other attributes are for the table view. This
+ * Best process: the model for each row should always contain the raw data. The other attributes are for the table view. This
  * way action events, such as row select/delete have context.
  */
 export interface BaseTableModel<T> {

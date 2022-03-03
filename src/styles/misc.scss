@@ -39,6 +39,24 @@ pre {
   }
 }
 
+.o-hidden {
+  overflow: hidden;
+}
+
+.o-auto {
+  &.y    { overflow-y: auto; }
+  &.x    { overflow-x: auto; }
+  &.both { overflow: auto; }
+}
+
+.visibility-hidden {
+  visibility: hidden !important; // the component is in the DOM: it is not visible BUT takes up space
+}
+
+.display-none {
+  display: none !important; // the component is in the DOM: it is not visible AND takes up no space
+}
+
 .error-message {
   margin: 20px;
   padding: 10px;

@@ -7,10 +7,10 @@ import { takeUntil } from 'rxjs/operators';
 
 import { HasTableStore } from '../../services/store/store.model';
 import { BaseSubscriptionsDirective } from '../base-subscriptions/base-subscriptions.directive';
-import { GenericTableStore } from '../local-storage-keys';
 import { KeyValueMenuItem } from '../menu-item';
 import { AnyObject } from '../record-types';
 import { BaseTableOptions, BaseTableView } from './base-table.model';
+import { GenericTableStore } from '../generic-store';
 
 /**
  * this is an abstract class. get items needs to be implemented

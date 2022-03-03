@@ -183,6 +183,16 @@ table.mat-table {
   }
 }
 
+// Used with grid settings "cog" and in discovery.
+.settings-menu {
+  padding: 8px 16px 0;
+  font-size: 14px;
+
+  .mat-label {
+    padding-bottom: 8px;
+  }
+}
+
 // standardize horizontal radio buttons. TODO styling for vertical dudes.
 .mat-radio-group {
   &.horizontal-buttons {

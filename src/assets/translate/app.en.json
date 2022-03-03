@@ -1,12 +1,12 @@
 {
-  "about": {
-    "body": "Company Body",
-    "title": "Company title"
-  },
-  "header": {
-    "about": "About",
-    "logout": "Logout",
-    "theme": "Theme",
-    "title": "Title"
+  "app": {
+    "models": {
+      "poke": {
+        "columns": {
+          "name": "Name",
+          "id": "ID"
+        }
+      }
+    }
   }
 }
