@@ -1,12 +1,13 @@
-import { PokeModel } from '../../models/poke.model';
+import { PokemonModel } from '../../models/pokemon.model';
 import { BaseTableModel } from '../../shared/base-table/base-table.model';
 import { GenericStoreWithTable } from '../../shared/generic-store';
 
 /**
  * What's on the screen right now
  */
-export interface PokeTableModel extends BaseTableModel<PokeModel> {
+export interface PokeTableModel extends BaseTableModel<PokemonModel> {
   name: string;
+  gender: string;
 }
 
 export type PokeView = keyof Omit<PokeTableModel, 'rawData'>;

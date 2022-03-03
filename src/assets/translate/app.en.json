@@ -3,6 +3,7 @@
     "models": {
       "poke": {
         "columns": {
+          "gender": "Gender",
           "name": "Name",
           "id": "ID"
         }

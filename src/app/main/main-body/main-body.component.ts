@@ -16,6 +16,8 @@ import { GenericTableStore } from '../../shared/generic-store';
 import { takeUntil } from 'rxjs/operators';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
+import { forkJoin } from 'rxjs';
+import { GenderService } from '../../services/gender.service';
 
 export type Action = 'charge' | 'move' | 'toggle' | 'batch';
 
@@ -34,12 +36,17 @@ export class MainBodyComponent
   readonly bs: BaseStore<PokeStore>;
   private readonly _items: KeyValueMenuItem<PokeView>[] = [
     { key: 'name', value: { label: 'app.models.poke.columns.name' } },
+    {
+      key: 'gender',
+      value: { label: 'app.models.poke.columns.gender' },
+    },
   ];
 
   constructor(
     private readonly storeService: StoreService,
     private readonly logger: NGXLogger,
     private readonly pokemonService: PokemonService,
+    private readonly genderService: GenderService,
   ) {
     super({
       action: true,
@@ -88,11 +95,8 @@ export class MainBodyComponent
   }
 
   override ngOnInit(): void {
-    const { dataSource } = this;
-
     super.ngOnInit();
 
-    dataSource.sortData = this.sortData;
     this.busy$.next(true);
   }
 
@@ -104,8 +108,10 @@ export class MainBodyComponent
       dataSource,
       tableStore,
       pokemonService,
+      genderService,
     } = this;
 
+    dataSource.sortData = (d) => d; // disable f/e sorting and do NOT define dataSource.paginator
     dataSource.sort = sort;
 
     paginator.page.pipe(takeUntil(destroy$)).subscribe((page: PageEvent) => {
@@ -118,15 +124,18 @@ export class MainBodyComponent
       this.getCollection(changed);
     });
 
-    sort.sortChange
-      .pipe(takeUntil(destroy$))
-      .subscribe(() => this.tableSaveSort(sort));
-
-    pokemonService.getAll().subscribe(() => {
-      this.paginator.length = pokemonService.rows.length;
-      this.busy$.next(false);
+    sort.sortChange.pipe(takeUntil(destroy$)).subscribe(() => {
+      this.tableSaveSort(sort);
       this.getCollection();
     });
+
+    forkJoin([pokemonService.getAll(), genderService.getAll()]).subscribe(
+      () => {
+        pokemonService.getGenders();
+        this.busy$.next(false);
+        this.getCollection();
+      },
+    );
   }
 
   override tableSave(): void {
@@ -140,49 +149,19 @@ export class MainBodyComponent
    * @param sort sort data
    * @return the sorted data
    */
-  private sortData(data: PokeTableModel[], sort: MatSort): PokeTableModel[] {
-    if (data.length <= 1 || !sort.active) {
-      return data;
-    }
-
-    const active = sort.active as PokeView;
-    const dir = sort.direction === 'asc' ? 1 : -1;
-    const compareId: (a: PokeTableModel, b: PokeTableModel) => number = (
-      a: PokeTableModel,
-      b: PokeTableModel,
-    ) => a.rawData.id.localeCompare(b.rawData.id);
-
-    switch (active) {
-      case 'id':
-        data.sort((a, b) => dir * compareId(a, b));
-        break;
-      default:
-        data.sort((a, b) => {
-          const aVal = a[active] ?? '';
-          const bVal = b[active] ?? '';
-
-          return (
-            dir *
-            (aVal.toString().localeCompare(bVal.toString()) || compareId(a, b))
-          );
-        });
-    }
-    return data;
-  }
-
   private getCollection(firstPage = false): void {
-    const { dataSource, sort, busy$, paginator, tableStore, pokemonService } =
-      this;
+    const { dataSource, sort, paginator, tableStore, pokemonService } = this;
 
     if (firstPage) {
       paginator.pageIndex = 0;
       tableStore.pageSize = paginator.pageSize;
     }
 
-    pokemonService.get(paginator).subscribe((rows) => {
+    pokemonService.get({ page: paginator, sort }).subscribe((rows) => {
       dataSource.data = rows.map((rawData) => {
         return {
           name: rawData.name,
+          gender: rawData.gender,
           id: rawData.id,
           rawData,
         };
