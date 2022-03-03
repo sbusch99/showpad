@@ -83,10 +83,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [CommonModule],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 10000 } }, // snacks are defaulted to 10 seconds
+    /*
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
     },
+    */
   ],
 })
 export class MaterialModule {}

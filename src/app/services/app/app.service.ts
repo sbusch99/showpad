@@ -10,6 +10,6 @@ export class AppService {
   constructor() {
     const { api } = environment;
 
-    this.url = `${api.uri}/${api.version}/`;
+    this.url = `${api.uri}/${api.version}`;
   }
 }

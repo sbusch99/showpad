@@ -14,6 +14,8 @@ import { StoreService } from '../../services/store/store.service';
 import { localStorageKeys } from '../../shared/local-storage-keys';
 import { GenericTableStore } from '../../shared/generic-store';
 import { takeUntil } from 'rxjs/operators';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PokemonService } from '../../services/pokemon/pokemon.service';
 
 export type Action = 'charge' | 'move' | 'toggle' | 'batch';
 
@@ -27,14 +29,18 @@ export class MainBodyComponent
   implements OnInit, AfterViewInit
 {
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   readonly bs: BaseStore<PokeStore>;
   private readonly _items: KeyValueMenuItem<PokeView>[] = [
-    { key: 'id', value: { label: 'app.models.poke.columns.id' } },
     { key: 'name', value: { label: 'app.models.poke.columns.name' } },
   ];
 
-  constructor(private storeService: StoreService, private logger: NGXLogger) {
+  constructor(
+    private readonly storeService: StoreService,
+    private readonly logger: NGXLogger,
+    private readonly pokemonService: PokemonService,
+  ) {
     super({
       action: true,
       select: false,
@@ -87,16 +93,40 @@ export class MainBodyComponent
     super.ngOnInit();
 
     dataSource.sortData = this.sortData;
+    this.busy$.next(true);
   }
 
   ngAfterViewInit(): void {
-    const { sort, destroy$, dataSource } = this;
+    const {
+      paginator,
+      sort,
+      destroy$,
+      dataSource,
+      tableStore,
+      pokemonService,
+    } = this;
 
     dataSource.sort = sort;
+
+    paginator.page.pipe(takeUntil(destroy$)).subscribe((page: PageEvent) => {
+      const changed = tableStore.pageSize !== page.pageSize;
+
+      if (changed) {
+        tableStore.pageSize = page.pageSize;
+        this.tableSave();
+      }
+      this.getCollection(changed);
+    });
 
     sort.sortChange
       .pipe(takeUntil(destroy$))
       .subscribe(() => this.tableSaveSort(sort));
+
+    pokemonService.getAll().subscribe(() => {
+      this.paginator.length = pokemonService.rows.length;
+      this.busy$.next(false);
+      this.getCollection();
+    });
   }
 
   override tableSave(): void {
@@ -138,5 +168,25 @@ export class MainBodyComponent
         });
     }
     return data;
+  }
+
+  private getCollection(firstPage = false): void {
+    const { dataSource, sort, busy$, paginator, tableStore, pokemonService } =
+      this;
+
+    if (firstPage) {
+      paginator.pageIndex = 0;
+      tableStore.pageSize = paginator.pageSize;
+    }
+
+    pokemonService.get(paginator).subscribe((rows) => {
+      dataSource.data = rows.map((rawData) => {
+        return {
+          name: rawData.name,
+          id: rawData.id,
+          rawData,
+        };
+      });
+    });
   }
 }
