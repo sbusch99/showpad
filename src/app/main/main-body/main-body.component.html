@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column" fxLayoutGap="16px">
   <div fxFlex fxLayout="row" fxLayoutGap="8px">
-    <mat-card fxFlex="300px" *ngIf="(busy$ | async) === false">
+    <mat-card fxFlex="250px" *ngIf="(busy$ | async) === false">
       <app-main-facet (filter)="setFilter($event)"></app-main-facet>
     </mat-card>
     <div fxFlex fxLayout="row" fxLayoutAlign="start center">
