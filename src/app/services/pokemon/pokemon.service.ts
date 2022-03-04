@@ -122,7 +122,8 @@ export class PokemonService {
     ) {
       this.sort.active = sort.active;
       this.sort.direction = sort.direction;
-      this.sortData();
+      this.sortData(this.rows);
+      this.sortData(this.filtered);
     }
 
     const { filtered } = this;
@@ -142,8 +143,8 @@ export class PokemonService {
     }
   }
 
-  private sortData(): void {
-    const { rows, sort } = this;
+  private sortData(rows: PokemonModel[]): void {
+    const { sort } = this;
 
     if (rows.length <= 1 || !sort.active) {
       return;
