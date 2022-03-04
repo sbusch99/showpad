@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppService } from '../app/app.service';
-import { forkJoin, map, Observable, of, take, tap } from 'rxjs';
+import { forkJoin, map, Observable, of, Subject, take, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CatchWishModel, PokemonModel } from '../../models/pokemon.model';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,6 +16,7 @@ import { localStorageKeys } from '../../shared/local-storage-keys';
 export class PokemonService {
   readonly url = `${this.app.url}/pokemon`;
   rows: PokemonModel[] = [];
+  readonly dataChanged = new Subject<void>();
   filtered: PokemonModel[] = [];
   totalRows = 0;
 
@@ -97,12 +98,18 @@ export class PokemonService {
           return false;
         }
 
-        if (filter.wishes && !row.wish) {
-          return false;
-        }
+        if (filter.wishes && filter.catches) {
+          if (!row.wish && !row.catch) {
+            return false;
+          }
+        } else {
+          if (filter.wishes && !row.wish) {
+            return false;
+          }
 
-        if (filter.catches && !row.catch) {
-          return false;
+          if (filter.catches && !row.catch) {
+            return false;
+          }
         }
 
         return true;

@@ -106,6 +106,8 @@ export class MainBodyComponent
       catches,
       wishes,
     });
+
+    this.pokemonService.dataChanged.next();
   }
 
   setFilter(event: MainFacetModel): void {

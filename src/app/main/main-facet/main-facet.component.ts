@@ -87,13 +87,16 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
           .subscribe((v) => this.emit());
       }
 
-      this.filterChanged();
+      this.dataChanged();
     }
 
     name.valueChanges.pipe(takeUntil(destroy$)).subscribe(() => this.emit());
+    pokemonService.dataChanged
+      .pipe(takeUntil(destroy$))
+      .subscribe(() => this.dataChanged());
   }
 
-  private filterChanged(): void {
+  private dataChanged(): void {
     const { pokemonService, catchWishes } = this;
     for (const cw of catchWishes) {
       const { value } = cw;
