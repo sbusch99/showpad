@@ -12,7 +12,7 @@ import { GenderService } from '../gender.service';
 })
 export class PokemonService {
   readonly url = `${this.app.url}/pokemon`;
-  rows!: PokemonModel[];
+  rows: PokemonModel[] = [];
 
   private sort: Sort = {
     direction: 'desc',

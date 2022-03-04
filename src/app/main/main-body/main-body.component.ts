@@ -19,7 +19,7 @@ import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { forkJoin } from 'rxjs';
 import { GenderService } from '../../services/gender.service';
 
-export type Action = 'charge' | 'move' | 'toggle' | 'batch';
+export type Action = 'catch' | 'wish';
 
 @Component({
   selector: 'app-main-body',
@@ -35,17 +35,17 @@ export class MainBodyComponent
 
   readonly bs: BaseStore<PokeStore>;
   private readonly _items: KeyValueMenuItem<PokeView>[] = [
-    { key: 'name', value: { label: 'app.models.poke.columns.name' } },
+    { key: 'name', value: { label: 'app.models.pokemon.columns.name' } },
     {
       key: 'gender',
-      value: { label: 'app.models.poke.columns.gender' },
+      value: { label: 'app.models.pokemon.columns.gender' },
     },
   ];
 
   constructor(
     private readonly storeService: StoreService,
     private readonly logger: NGXLogger,
-    private readonly pokemonService: PokemonService,
+    readonly pokemonService: PokemonService,
     private readonly genderService: GenderService,
   ) {
     super({
@@ -79,13 +79,10 @@ export class MainBodyComponent
 
     for (const row of rows) {
       switch (action) {
-        case 'charge':
+        case 'catch':
           logger.debug(action, row);
           break;
-        case 'move':
-          logger.debug(action, row);
-          break;
-        case 'toggle':
+        case 'wish':
           logger.debug(action, row);
           break;
         default:
@@ -142,13 +139,6 @@ export class MainBodyComponent
     this.storeService.setObject<PokeStore>(this.bs.storeKey, this.bs.store);
   }
 
-  /**
-   * Sort the data. "this" is MatTableDataSource - not PokeComponent.
-   *
-   * @param data rows of data
-   * @param sort sort data
-   * @return the sorted data
-   */
   private getCollection(firstPage = false): void {
     const { dataSource, sort, paginator, tableStore, pokemonService } = this;
 

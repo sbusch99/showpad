@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MainComponent } from './main.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainBodyComponent } from './main-body/main-body.component';
+import { MainFacetComponent } from './main-facet/main-facet.component';
 
 const components = [MainComponent, MainBodyComponent];
 
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, MainFacetComponent],
   imports: [SharedModule, RouterModule.forChild(routes)],
 })
 export class MainModule {}

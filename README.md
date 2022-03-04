@@ -33,3 +33,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * NgRx (didn't use) 
 * Lazy loading
 * Persistence: localStorage
+* FontAwesome 6

@@ -1,0 +1,25 @@
+<div fxFlexFill fxLayout="column" fxLayoutGap="8px">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{
+        'app.models.pokemon.columns.name' | translate
+      }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content> name </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{
+        'app.models.pokemon.columns.gender' | translate
+      }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+      <mat-checkbox
+        *ngFor="let gender of $any(genders)"
+        [formControl]="gender.value.formControl"
+      >
+        {{ gender.value.label || '' | translate }}
+      </mat-checkbox>
+    </mat-card-content>
+  </mat-card>
+</div>

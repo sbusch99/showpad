@@ -1,11 +1,29 @@
 {
   "app": {
     "models": {
-      "poke": {
+      "pokemon": {
         "columns": {
           "gender": "Gender",
           "name": "Name",
           "id": "ID"
+        }
+      },
+      "gender": {
+        "type": {
+          "female": "Female",
+          "male": "Male",
+          "genderless": "Genderless"
+        }
+      }
+    },
+    "main": {
+      "table": {
+        "total": "Total number of Pokemon: {{total}}",
+        "action": {
+          "tooltip": {
+            "catch": "Catch a Pokemon",
+            "wish":  "Wishlist"
+          }
         }
       }
     }
