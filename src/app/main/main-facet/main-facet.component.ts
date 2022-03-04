@@ -86,10 +86,9 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
           .pipe(takeUntil(destroy$))
           .subscribe((v) => this.emit());
       }
-
-      this.dataChanged();
     }
 
+    this.dataChanged();
     name.valueChanges.pipe(takeUntil(destroy$)).subscribe(() => this.emit());
     pokemonService.dataChanged
       .pipe(takeUntil(destroy$))
