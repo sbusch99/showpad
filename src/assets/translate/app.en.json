@@ -2,7 +2,7 @@
   "app": {
     "about": {
       "title": "My Pokemon",
-      "butter": "Hi!!! I am Buttterfree!!!"
+      "butter": "Hi!!! I am Butterfree!!!"
     },
     "models": {
       "pokemon": {
