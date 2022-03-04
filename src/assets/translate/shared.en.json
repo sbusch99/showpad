@@ -40,6 +40,12 @@
         "warning": "Warning"
       }
     },
+    "login": {
+      "button": "Go",
+      "logout-warning": "Due to inactivity, you will be logged out shortly",
+      "password": "Password",
+      "userName": "User Name"
+    },
     "snack": {
       "close": "Close",
       "error": "Error",
@@ -47,12 +53,12 @@
       "undo": "Undo"
     },
     "table": {
-      "filter": "Filter",
-      "filter-count": "Filter count: {{count}}",
-      "filter-no-data": "No data matching the filter: {{filter}}",
       "columns": {
         "action": "Action"
       },
+      "filter": "Filter",
+      "filter-count": "Filter count: {{count}}",
+      "filter-no-data": "No data matching the filter: {{filter}}",
       "mat-paginator": {
         "of": "of {{value}}",
         "page": "Page"
@@ -67,12 +73,6 @@
     "theme": {
       "dark": "Dark",
       "light": "Light"
-    },
-    "login": {
-      "button": "Go",
-      "userName": "User Name",
-      "password": "Password",
-      "logout-warning": "Due to inactivity, you will be logged out shortly"
     }
   }
 }

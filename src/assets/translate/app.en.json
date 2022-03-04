@@ -1,38 +1,38 @@
 {
   "app": {
     "about": {
-      "title": "My Pokemon",
-      "butter": "Hi!!! I am Butterfree!!!"
+      "butter": "Hi!!! I am Butterfree!!!",
+      "title": "My Pokemon"
+    },
+    "main": {
+      "table": {
+        "action": {
+          "tooltip": {
+            "catch": "Catch a Pokemon",
+            "wish": "Wishlist"
+          }
+        },
+        "total": "{{total}} Pokemon"
+      }
     },
     "models": {
-      "pokemon": {
-        "columns": {
-          "gender": "Gender",
-          "name": "Name",
-          "id": "ID"
-        }
+      "catch-wish": {
+        "catches": "Catches",
+        "title": "Catch/Wish",
+        "wishes": "Wishes"
       },
       "gender": {
         "type": {
           "female": "Female",
-          "male": "Male",
-          "genderless": "Genderless"
+          "genderless": "Genderless",
+          "male": "Male"
         }
       },
-      "catch-wish": {
-        "title": "Catch/Wish",
-        "catches": "Catches",
-        "wishes": "Wishes"
-      }
-    },
-    "main": {
-      "table": {
-        "total": "{{total}} Pokemon",
-        "action": {
-          "tooltip": {
-            "catch": "Catch a Pokemon",
-            "wish":  "Wishlist"
-          }
+      "pokemon": {
+        "columns": {
+          "gender": "Gender",
+          "id": "ID",
+          "name": "Name"
         }
       }
     }
