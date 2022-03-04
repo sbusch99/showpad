@@ -46,6 +46,8 @@ export class MainBodyComponent
   private filter: MainFacetModel = {
     genders: [],
     name: '',
+    catches: false,
+    wishes: false,
   };
 
   constructor(

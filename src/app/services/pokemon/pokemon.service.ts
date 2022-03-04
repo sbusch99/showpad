@@ -26,6 +26,8 @@ export class PokemonService {
   private filter: MainFacetModel = {
     genders: [],
     name: '',
+    catches: false,
+    wishes: false,
   };
 
   constructor(
@@ -85,28 +87,26 @@ export class PokemonService {
     const { rows } = this;
 
     if (JSON.stringify(this.filter) !== JSON.stringify(filter)) {
-      this.filter.name = filter.name;
-      this.filter.genders = filter.genders;
+      this.filter = JSON.parse(JSON.stringify(filter));
+      this.filtered = rows.filter((row) => {
+        if (filter.genders.length && !filter.genders.includes(row.gender)) {
+          return false;
+        }
 
-      if (!filter.name && filter.genders.length === 0) {
-        this.filtered = rows.slice();
-      } else {
-        this.filtered = rows.filter((row) => {
-          if (filter.genders.length) {
-            if (!filter.genders.includes(row.gender)) {
-              return false;
-            }
-          }
+        if (filter.name && !row.name.includes(filter.name)) {
+          return false;
+        }
 
-          if (filter.name) {
-            if (!row.name.includes(filter.name)) {
-              return false;
-            }
-          }
+        if (filter.wishes && !row.wish) {
+          return false;
+        }
 
-          return true;
-        });
-      }
+        if (filter.catches && !row.catch) {
+          return false;
+        }
+
+        return true;
+      });
     }
 
     if (

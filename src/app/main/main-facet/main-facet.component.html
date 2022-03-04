@@ -34,4 +34,20 @@
       </mat-checkbox>
     </mat-card-content>
   </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{
+        'app.models.catch-wish.title' | translate
+      }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+      <mat-checkbox
+        *ngFor="let cw of $any(catchWishes)"
+        [formControl]="cw.value.formControl"
+      >
+        <span>{{ cw.value.label || '' | translate }}</span>
+        <span class="counts">{{ cw.value.count }}</span>
+      </mat-checkbox>
+    </mat-card-content>
+  </mat-card>
 </div>

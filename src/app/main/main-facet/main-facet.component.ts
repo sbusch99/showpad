@@ -6,6 +6,7 @@ import { BaseSubscriptions } from '../../shared/base-subscriptions/base-subscrip
 import { takeUntil } from 'rxjs/operators';
 import { MainFacetModel } from './main-facet-model';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
+import { CatchWishModel } from '../../models/pokemon.model';
 
 @Component({
   selector: 'app-main-facet',
@@ -38,6 +39,22 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
       },
     },
   ];
+  readonly catchWishes: KeyValueMenuItem<keyof CatchWishModel>[] = [
+    {
+      key: 'catches',
+      value: {
+        label: 'app.models.catch-wish.catches',
+        formControl: new FormControl(),
+      },
+    },
+    {
+      key: 'wishes',
+      value: {
+        label: 'app.models.catch-wish.wishes',
+        formControl: new FormControl(),
+      },
+    },
+  ];
   readonly name = new FormControl('');
 
   constructor(private readonly pokemonService: PokemonService) {
@@ -45,7 +62,7 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
   }
 
   ngOnInit(): void {
-    const { genders, destroy$, name, pokemonService } = this;
+    const { genders, catchWishes, destroy$, name, pokemonService } = this;
 
     for (const gender of genders) {
       const { value } = gender;
@@ -61,11 +78,35 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
       ).length;
     }
 
+    for (const cw of catchWishes) {
+      const { value } = cw;
+
+      if (value.formControl) {
+        value.formControl.valueChanges
+          .pipe(takeUntil(destroy$))
+          .subscribe((v) => this.emit());
+      }
+
+      this.filterChanged();
+    }
+
     name.valueChanges.pipe(takeUntil(destroy$)).subscribe(() => this.emit());
   }
 
+  private filterChanged(): void {
+    const { pokemonService, catchWishes } = this;
+    for (const cw of catchWishes) {
+      const { value } = cw;
+      if (cw.key === 'catches') {
+        value.count = pokemonService.rows.filter((r) => r.catch).length;
+      } else {
+        value.count = pokemonService.rows.filter((r) => r.wish).length;
+      }
+    }
+  }
+
   private emit(): void {
-    const { filter } = this;
+    const { filter, catchWishes } = this;
     const name = (this.name.value as string).toLowerCase();
     const genders = this.genders
       .filter((g) => g.value.formControl?.value)
@@ -74,6 +115,8 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
     const model: MainFacetModel = {
       genders,
       name,
+      catches: catchWishes[0].value.formControl?.value || false,
+      wishes: catchWishes[1].value.formControl?.value || false,
     };
 
     filter.emit(model);
