@@ -17,7 +17,7 @@ export const tableStoreDefault: PokeStore = {
   table: {
     hidden: [],
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 10,
     sortColumn: 'name',
     sortDirection: 'asc',
   },
