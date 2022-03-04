@@ -32,7 +32,7 @@ export class GenderService {
     return forkJoin(observables);
   }
 
-  get(name: string): GenderType | undefined {
-    return this.map.get(name);
+  get(name: string): GenderType {
+    return this.map.get(name) || 'genderless';
   }
 }

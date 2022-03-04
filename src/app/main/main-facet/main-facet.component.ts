@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { BaseSubscriptions } from '../../shared/base-subscriptions/base-subscriptions';
 import { takeUntil } from 'rxjs/operators';
 import { MainFacetModel } from './main-facet-model';
+import { PokemonService } from '../../services/pokemon/pokemon.service';
 
 @Component({
   selector: 'app-main-facet',
@@ -39,21 +40,26 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
   ];
   readonly name = new FormControl('');
 
-  constructor() {
+  constructor(private readonly pokemonService: PokemonService) {
     super();
   }
 
   ngOnInit(): void {
-    const { genders, destroy$, name } = this;
+    const { genders, destroy$, name, pokemonService } = this;
 
-    genders
-      .map((g) => g.value.formControl)
-      .filter((f) => !!f)
-      .forEach((control) => {
-        control?.valueChanges
+    for (const gender of genders) {
+      const { value } = gender;
+
+      if (value.formControl) {
+        value.formControl.valueChanges
           .pipe(takeUntil(destroy$))
           .subscribe((v) => this.emit());
-      });
+      }
+
+      value.count = pokemonService.rows.filter(
+        (r) => r.gender === gender.key,
+      ).length;
+    }
 
     name.valueChanges.pipe(takeUntil(destroy$)).subscribe(() => this.emit());
   }

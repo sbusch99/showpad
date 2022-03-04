@@ -13,7 +13,7 @@ import { MainFacetModel } from '../../main/main-facet/main-facet-model';
 })
 export class PokemonService {
   readonly url = `${this.app.url}/pokemon`;
-  private rows: PokemonModel[] = [];
+  rows: PokemonModel[] = [];
   filtered: PokemonModel[] = [];
   totalRows = 0;
 
@@ -72,7 +72,7 @@ export class PokemonService {
       this.filter.genders = filter.genders;
 
       if (!filter.name && filter.genders.length === 0) {
-        this.filtered = rows;
+        this.filtered = rows.slice();
       } else {
         this.filtered = rows.filter((row) => {
           if (filter.genders.length) {
@@ -130,10 +130,10 @@ export class PokemonService {
     const compareId: (a: PokemonModel, b: PokemonModel) => number = (
       a: PokemonModel,
       b: PokemonModel,
-    ) => a.id.localeCompare(b.id);
+    ) => a.name.localeCompare(b.name);
 
     switch (active) {
-      case 'id':
+      case 'name':
         rows.sort((a, b) => dir * compareId(a, b));
         break;
       default:
