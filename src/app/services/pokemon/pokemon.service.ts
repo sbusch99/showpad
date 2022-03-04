@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { AppService } from '../app/app.service';
 import { forkJoin, map, Observable, of, take, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { PokemonModel } from '../../models/pokemon.model';
+import { CatchWishModel, PokemonModel } from '../../models/pokemon.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { GenderService } from '../gender/gender.service';
 import { MainFacetModel } from '../../main/main-facet/main-facet-model';
+import { StoreService } from '../store/store.service';
+import { localStorageKeys } from '../../shared/local-storage-keys';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +32,7 @@ export class PokemonService {
     private readonly app: AppService,
     private readonly http: HttpClient,
     private readonly genderService: GenderService,
+    private readonly storeService: StoreService,
   ) {}
 
   getAll(): Observable<PokemonModel[]> {
@@ -39,14 +42,28 @@ export class PokemonService {
       results: PokemonModel[];
     }
 
-    const { http, url } = this;
+    const { http, url, storeService } = this;
     const params = new HttpParams().set('offset', 0).set('limit', '2048');
+    const catchWish = storeService.getObject<CatchWishModel>(
+      localStorageKeys.catchWish,
+      {
+        catches: [],
+        wishes: [],
+      },
+    );
 
     return http.get<Resp>(url, { params }).pipe(
       take(1),
       map((resp) => {
         for (const row of resp.results) {
-          row.id = row.url;
+          row.id = row.name;
+
+          try {
+            row.catch = catchWish?.catches.includes(row.name) || false;
+            row.wish = catchWish?.wishes.includes(row.name) || false;
+          } catch {
+            row.catch = row.wish = false;
+          }
         }
 
         this.rows = this.filtered = resp.results;

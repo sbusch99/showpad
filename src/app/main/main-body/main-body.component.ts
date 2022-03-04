@@ -19,6 +19,7 @@ import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { forkJoin } from 'rxjs';
 import { GenderService } from '../../services/gender/gender.service';
 import { MainFacetModel } from '../main-facet/main-facet-model';
+import { CatchWishModel } from '../../models/pokemon.model';
 
 export type Action = 'catch' | 'wish';
 
@@ -79,21 +80,30 @@ export class MainBodyComponent
     this.bs.store.table = table;
   }
 
-  action(action: Action, ...rows: PokeTableModel[]): void {
-    const { logger } = this;
+  action(action: Action, ...rx: PokeTableModel[]): void {
+    const { storeService, pokemonService } = this;
+    const { rows } = pokemonService;
 
-    for (const row of rows) {
+    for (const row of rx) {
       switch (action) {
         case 'catch':
-          logger.debug(action, row);
+          row.rawData.catch = !row.rawData.catch;
           break;
         case 'wish':
-          logger.debug(action, row);
+          row.rawData.wish = !row.rawData.wish;
           break;
         default:
           throw new Error(`Unexpected action: ${action}`);
       }
     }
+
+    const wishes = rows.filter((r) => r.wish).map((r) => r.name);
+    const catches = rows.filter((r) => r.catch).map((r) => r.name);
+
+    storeService.setObject<CatchWishModel>(localStorageKeys.catchWish, {
+      catches,
+      wishes,
+    });
   }
 
   setFilter(event: MainFacetModel): void {

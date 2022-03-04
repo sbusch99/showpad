@@ -27,6 +27,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Showpad
+* https://acmecouture.com/
 * GlobalErrorHandler
 * TranslationModule
 * LoggerModule
@@ -34,3 +35,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * Lazy loading
 * Persistence: localStorage
 * FontAwesome 6
+* Faceted search

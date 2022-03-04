@@ -117,14 +117,24 @@
       [matTooltip]="'app.main.table.action.tooltip.catch' | translate"
       mat-icon-button
     >
-      <mat-icon><i class="fal fa-fish"></i></mat-icon>
+      <mat-icon *ngIf="safeRow(row).rawData.catch"
+        ><i class="fas fa-fish" style="color: blue"></i
+      ></mat-icon>
+      <mat-icon *ngIf="!safeRow(row).rawData.catch"
+        ><i class="fal fa-fish"></i
+      ></mat-icon>
     </button>
     <button
       (click)="action('wish', row)"
       [matTooltip]="'app.main.table.action.tooltip.wish' | translate"
       mat-icon-button
     >
-      <mat-icon><i class="fal fa-hand-fingers-crossed"></i></mat-icon>
+      <mat-icon *ngIf="safeRow(row).rawData.wish"
+        ><i class="fas fa-hand-fingers-crossed" style="color: green"></i
+      ></mat-icon>
+      <mat-icon *ngIf="!safeRow(row).rawData.wish"
+        ><i class="fal fa-hand-fingers-crossed"></i
+      ></mat-icon>
     </button>
   </div>
 </ng-template>
