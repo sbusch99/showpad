@@ -5,18 +5,25 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { PokemonModel } from '../../models/pokemon.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { GenderService } from '../gender.service';
+import { GenderService } from '../gender/gender.service';
+import { MainFacetModel } from '../../main/main-facet/main-facet-model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
   readonly url = `${this.app.url}/pokemon`;
-  rows: PokemonModel[] = [];
+  private rows: PokemonModel[] = [];
+  filtered: PokemonModel[] = [];
+  totalRows = 0;
 
   private sort: Sort = {
     direction: 'desc',
     active: '',
+  };
+  private filter: MainFacetModel = {
+    genders: [],
+    name: '',
   };
 
   constructor(
@@ -42,7 +49,8 @@ export class PokemonService {
           row.id = row.url;
         }
 
-        this.rows = resp.results;
+        this.rows = this.filtered = resp.results;
+        this.totalRows = this.rows.length;
         return resp.results;
       }),
     );
@@ -51,11 +59,38 @@ export class PokemonService {
   get({
     page,
     sort,
+    filter,
   }: {
     page: MatPaginator;
     sort: MatSort;
+    filter: MainFacetModel;
   }): Observable<PokemonModel[]> {
     const { rows } = this;
+
+    if (JSON.stringify(this.filter) !== JSON.stringify(filter)) {
+      this.filter.name = filter.name;
+      this.filter.genders = filter.genders;
+
+      if (!filter.name && filter.genders.length === 0) {
+        this.filtered = rows;
+      } else {
+        this.filtered = rows.filter((row) => {
+          if (filter.genders.length) {
+            if (!filter.genders.includes(row.gender)) {
+              return false;
+            }
+          }
+
+          if (filter.name) {
+            if (!row.name.includes(filter.name)) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+      }
+    }
 
     if (
       this.sort.active !== sort.active ||
@@ -66,10 +101,11 @@ export class PokemonService {
       this.sortData();
     }
 
+    const { filtered } = this;
     const index = page.pageSize * page.pageIndex;
-    const res = rows.slice(index, index + page.pageSize);
+    const res = filtered.slice(index, index + page.pageSize);
 
-    page.length = rows.length;
+    page.length = filtered.length;
 
     return of(res);
   }

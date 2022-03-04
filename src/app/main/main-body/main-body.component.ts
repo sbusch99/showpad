@@ -17,7 +17,8 @@ import { takeUntil } from 'rxjs/operators';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { forkJoin } from 'rxjs';
-import { GenderService } from '../../services/gender.service';
+import { GenderService } from '../../services/gender/gender.service';
+import { MainFacetModel } from '../main-facet/main-facet-model';
 
 export type Action = 'catch' | 'wish';
 
@@ -41,6 +42,10 @@ export class MainBodyComponent
       value: { label: 'app.models.pokemon.columns.gender' },
     },
   ];
+  private filter: MainFacetModel = {
+    genders: [],
+    name: '',
+  };
 
   constructor(
     private readonly storeService: StoreService,
@@ -89,6 +94,11 @@ export class MainBodyComponent
           throw new Error(`Unexpected action: ${action}`);
       }
     }
+  }
+
+  setFilter(event: MainFacetModel): void {
+    this.filter = event;
+    this.getCollection(true);
   }
 
   override ngOnInit(): void {
@@ -140,14 +150,15 @@ export class MainBodyComponent
   }
 
   private getCollection(firstPage = false): void {
-    const { dataSource, sort, paginator, tableStore, pokemonService } = this;
+    const { dataSource, sort, paginator, tableStore, pokemonService, filter } =
+      this;
 
     if (firstPage) {
       paginator.pageIndex = 0;
       tableStore.pageSize = paginator.pageSize;
     }
 
-    pokemonService.get({ page: paginator, sort }).subscribe((rows) => {
+    pokemonService.get({ page: paginator, sort, filter }).subscribe((rows) => {
       dataSource.data = rows.map((rawData) => {
         return {
           name: rawData.name,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AppService } from './app/app.service';
+import { AppService } from '../app/app.service';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable, tap } from 'rxjs';
-import { GenderModel, GenderType } from '../models/gender.model';
+import { GenderModel, GenderType } from '../../models/gender.model';
 
 @Injectable({
   providedIn: 'root',

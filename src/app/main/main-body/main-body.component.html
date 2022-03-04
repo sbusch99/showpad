@@ -1,7 +1,7 @@
 <div fxFlex fxLayout="column" fxLayoutGap="16px">
   <div fxFlex fxLayout="row" fxLayoutGap="8px">
     <mat-card fxFlex="300px">
-      <app-main-facet></app-main-facet>
+      <app-main-facet (filter)="setFilter($event)"></app-main-facet>
     </mat-card>
     <div fxFlex fxLayout="row" fxLayoutAlign="start center">
       <div class="h-full" fxFlex fxLayout="column">
@@ -34,7 +34,7 @@
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <div
             [translate]="'app.main.table.total'"
-            [translateParams]="{ total: pokemonService.rows.length }"
+            [translateParams]="{ total: pokemonService.totalRows }"
           ></div>
           <mat-paginator
             [pageSizeOptions]="[10, 20, 50, 100, 200]"
