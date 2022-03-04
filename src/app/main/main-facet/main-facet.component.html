@@ -1,6 +1,16 @@
 <div fxFlexFill fxLayout="column" fxLayoutGap="8px">
   <mat-card>
     <mat-card-header>
+      <mat-card-title>
+        <div
+          [translate]="'app.main.table.total'"
+          [translateParams]="{ total: pokemonService.totalRows }"
+        ></div>
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
       <mat-card-title>{{
         'app.models.pokemon.columns.name' | translate
       }}</mat-card-title>

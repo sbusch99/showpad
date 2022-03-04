@@ -1,5 +1,8 @@
 {
   "app": {
+    "about": {
+      "title": "My Pokemon"
+    },
     "models": {
       "pokemon": {
         "columns": {
@@ -23,7 +26,7 @@
     },
     "main": {
       "table": {
-        "total": "Total number of Pokemon: {{total}}",
+        "total": "{{total}} Pokemon",
         "action": {
           "tooltip": {
             "catch": "Catch a Pokemon",

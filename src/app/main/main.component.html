@@ -1,6 +1,7 @@
 <div fxFlexFill fxLayout="column" fxLayoutGap="16px">
-  <mat-toolbar fxLayout="row" fxLayoutAlign="start center">
+  <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
     <img height="45" src="assets/images/logo.jpg" />
+    <div style="color: white">{{ 'app.about.title' | translate }}</div>
   </mat-toolbar>
   <div fxFlex>
     <router-outlet></router-outlet>

@@ -57,7 +57,7 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
   ];
   readonly name = new FormControl('');
 
-  constructor(private readonly pokemonService: PokemonService) {
+  constructor(public readonly pokemonService: PokemonService) {
     super();
   }
 

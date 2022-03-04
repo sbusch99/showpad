@@ -31,17 +31,11 @@
         [attr.colspan]="displayedColumns.length"
         mat-footer-cell
       >
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div
-            [translate]="'app.main.table.total'"
-            [translateParams]="{ total: pokemonService.totalRows }"
-          ></div>
-          <mat-paginator
-            [pageSizeOptions]="[10, 20, 50, 100, 200]"
-            [pageSize]="tableStore.pageSize"
-            showFirstLastButtons
-          ></mat-paginator>
-        </div>
+        <mat-paginator
+          [pageSizeOptions]="[10, 20, 50, 100, 200]"
+          [pageSize]="tableStore.pageSize"
+          showFirstLastButtons
+        ></mat-paginator>
       </td>
     </ng-container>
     <ng-container *ngFor="let item of items" [matColumnDef]="item.key">
