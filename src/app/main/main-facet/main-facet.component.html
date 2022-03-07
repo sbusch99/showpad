@@ -1,11 +1,9 @@
 <div fxFlexFill fxLayout="column" fxLayoutGap="8px">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>
-        <div
-          [translate]="'app.main.table.total'"
-          [translateParams]="{ total: pokemonService.totalRows }"
-        ></div>
+      <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+        <div>{{ pokemonService.totalRows }}</div>
+        <img src="assets/images/count.jpg" width="64" />
       </mat-card-title>
     </mat-card-header>
   </mat-card>
