@@ -177,7 +177,6 @@ export class MainBodyComponent
         return {
           name: rawData.name,
           gender: rawData.gender,
-          id: rawData.id,
           rawData,
         };
       });
