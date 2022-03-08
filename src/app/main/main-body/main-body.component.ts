@@ -173,11 +173,7 @@ export class MainBodyComponent
     }
 
     pokemonService.get({ page: paginator, sort, filter }).subscribe((rows) => {
-      dataSource.data = rows.map((rawData) => {
-        return {
-          rawData,
-        };
-      });
+      dataSource.data = rows.map((rawData) => ({ rawData }));
     });
   }
 }
