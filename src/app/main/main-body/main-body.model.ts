@@ -5,12 +5,12 @@ import { GenericStoreWithTable } from '../../shared/generic-store';
 /**
  * What's on the screen right now
  */
-export interface PokeTableModel extends BaseTableModel<PokemonModel> {
-  name: string;
-  gender: string;
-}
+export interface PokeTableModel extends BaseTableModel<PokemonModel> {}
 
-export type PokeView = keyof Omit<PokeTableModel, 'rawData'>;
+export type PokeView =
+  | keyof Omit<PokeTableModel, 'rawData'>
+  | 'gender'
+  | 'name';
 export type PokeStore = GenericStoreWithTable<PokeView>;
 
 export const tableStoreDefault: PokeStore = {

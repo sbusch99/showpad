@@ -175,8 +175,6 @@ export class MainBodyComponent
     pokemonService.get({ page: paginator, sort, filter }).subscribe((rows) => {
       dataSource.data = rows.map((rawData) => {
         return {
-          name: rawData.name,
-          gender: rawData.gender,
           rawData,
         };
       });

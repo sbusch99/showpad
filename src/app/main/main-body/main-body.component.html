@@ -55,13 +55,10 @@
       >
         <ng-container [ngSwitch]="item.key">
           <ng-container *ngSwitchCase="safeCol('name')">
-            {{ safeRow(row).name | titlecase }}
+            {{ safeRow(row).rawData.name | titlecase }}
           </ng-container>
           <ng-container *ngSwitchCase="safeCol('gender')">
-            {{ safeRow(row).gender | titlecase }}
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            {{ row[item.key] }}
+            {{ safeRow(row).rawData.gender | titlecase }}
           </ng-container>
         </ng-container>
       </td>
