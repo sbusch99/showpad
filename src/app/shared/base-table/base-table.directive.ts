@@ -107,7 +107,7 @@ export abstract class BaseTableDirective<
   setDisplayedColumns(option: 'all' | 'set' | 'reset' = 'set'): void {
     const { baseOptions, items, destroy$ } = this;
     const { defaultHidden } = baseOptions;
-    const columns: (ColumnView | BaseTableView)[] = [];
+    let columns: (ColumnView | BaseTableView)[] = [];
     const allReset = option === 'all' || option === 'reset';
 
     // Fail-safe test to make sure this only executes appropriately.
@@ -158,6 +158,17 @@ export abstract class BaseTableDirective<
 
     if (baseOptions.action) {
       columns.push('action');
+    }
+
+    if (Array.isArray(this.tableStore?.order)) {
+      const { tableStore: table } = this;
+      // @ts-ignore
+      let newOrder: (ColumnView | BaseTableView)[] =
+        table.order?.filter((o) => columns.includes(o)) || [];
+
+      if (newOrder.length === columns.length) {
+        columns = newOrder;
+      }
     }
 
     this.displayedColumns = columns;

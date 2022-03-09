@@ -20,6 +20,7 @@ import { forkJoin } from 'rxjs';
 import { GenderService } from '../../services/gender/gender.service';
 import { MainFacetModel } from '../main-facet/main-facet-model';
 import { CatchWishModel } from '../../models/pokemon.model';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export type Action = 'catch' | 'wish';
 
@@ -110,6 +111,16 @@ export class MainBodyComponent
     this.pokemonService.dataChanged.next();
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.displayedColumns,
+      event.previousIndex,
+      event.currentIndex,
+    );
+
+    this.bs.store.table.order = this.displayedColumns as PokeView[];
+    this.tableSave();
+  }
   setFilter(event: MainFacetModel): void {
     this.filter = event;
     this.getCollection(true);

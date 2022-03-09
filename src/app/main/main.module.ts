@@ -4,6 +4,7 @@ import { MainComponent } from './main.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainBodyComponent } from './main-body/main-body.component';
 import { MainFacetComponent } from './main-facet/main-facet.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const components = [MainComponent, MainBodyComponent];
 

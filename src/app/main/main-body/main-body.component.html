@@ -18,11 +18,15 @@
     [dataSource]="dataSource"
     [matSortActive]="tableStore.sortColumn"
     [matSortDirection]="tableStore.sortDirection"
-    class="standard-table"
+    class="w-full"
     mat-table
     matSort
     matSortDisableClear
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
   >
+    >
     <ng-container [matColumnDef]="safeCol('select')">
       <th *matHeaderCellDef class="fake-select" mat-header-cell></th>
       <td *matCellDef="let row" class="fake-select" mat-cell></td>
@@ -45,6 +49,7 @@
         [ngClass]="{ 'th-right': item.value.alignRight }"
         mat-header-cell
         mat-sort-header
+        cdkDrag
       >
         {{ item.value.label || '' | translate }}
       </th>

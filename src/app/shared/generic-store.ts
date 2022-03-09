@@ -2,6 +2,7 @@ import { SortDirection } from '@angular/material/sort';
 
 export interface GenericTableStore<T = string> {
   hidden?: T[];
+  order?: T[];
   pageIndex: number;
   pageSize: number;
   sortColumn: T;
