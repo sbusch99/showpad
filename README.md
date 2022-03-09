@@ -36,3 +36,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * Persistence: localStorage
 * FontAwesome 6
 * Faceted search
+* D&D on column reordering
