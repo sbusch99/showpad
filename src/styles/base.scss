@@ -6,11 +6,10 @@ body {
 }
 
 body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
   app-root > div {
     height: 100%; // convenience: no need to set in app.component.html
-  }
-
-  .h100 {
-    height: 100%;
   }
 }
