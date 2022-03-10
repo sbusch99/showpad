@@ -2,17 +2,17 @@
   "app": {
     "about": {
       "butter": "Hi!!! I am Butterfree!!!",
-      "title": "My Pokemon"
+      "title": "My Pokémon"
     },
     "main": {
       "table": {
         "action": {
           "tooltip": {
-            "catch": "Catch a Pokemon",
+            "catch": "Catch a Pokémon",
             "wish": "Wishlist"
           }
         },
-        "total": "{{total}} Pokemon"
+        "total": "{{total}} Pokémon"
       }
     },
     "models": {
