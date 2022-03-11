@@ -35,7 +35,16 @@ export class GenderService {
     return forkJoin(observables);
   }
 
+  foo = 0;
+
   get(name: string): GenderType[] {
-    return this.map.get(name) || ['genderless'];
+    let result = this.map.get(name);
+
+    if (!result) {
+      result = ['unknown'];
+      this.map.set(name, result);
+    }
+
+    return result;
   }
 }

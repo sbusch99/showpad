@@ -38,6 +38,13 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
         formControl: new FormControl(),
       },
     },
+    {
+      key: 'unknown',
+      value: {
+        label: 'app.models.gender.type.unknown',
+        formControl: new FormControl(),
+      },
+    },
   ];
   readonly catchWishes: KeyValueMenuItem<keyof CatchWishModel>[] = [
     {
@@ -74,7 +81,7 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
       }
 
       value.count = pokemonService.rows.filter((r) =>
-        r.gender.includes(gender.key),
+        r.genders.includes(gender.key),
       ).length;
     }
 

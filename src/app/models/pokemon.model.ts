@@ -2,7 +2,7 @@ import { GenderType } from './gender.model';
 
 export interface PokemonModel {
   catch: boolean;
-  gender: GenderType[];
+  genders: GenderType[];
   id: string;
   name: string;
   url: string;

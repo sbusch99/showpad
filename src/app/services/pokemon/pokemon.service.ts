@@ -91,7 +91,7 @@ export class PokemonService {
       this.filter = JSON.parse(JSON.stringify(filter));
       this.filtered = rows.filter((row) => {
         if (filter.genders.length) {
-          const match = filter.genders.find((f) => row.gender.includes(f));
+          const match = filter.genders.find((f) => row.genders.includes(f));
 
           if (!match) {
             return false;
@@ -143,7 +143,7 @@ export class PokemonService {
     const { genderService } = this;
 
     for (const row of this.rows) {
-      row.gender = genderService.get(row.name) || 'genderless';
+      row.genders = genderService.get(row.name);
     }
   }
 

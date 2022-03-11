@@ -1,4 +1,4 @@
-export type GenderType = 'male' | 'female' | 'genderless';
+export type GenderType = 'male' | 'female' | 'genderless' | 'unknown';
 
 export interface SpeciesDetails {
   pokemon_species: {

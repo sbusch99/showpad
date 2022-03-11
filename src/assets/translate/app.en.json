@@ -25,7 +25,8 @@
         "type": {
           "female": "Female",
           "genderless": "Genderless",
-          "male": "Male"
+          "male": "Male",
+          "unknown": "Unknown"
         }
       },
       "pokemon": {
