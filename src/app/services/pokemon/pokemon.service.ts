@@ -90,8 +90,12 @@ export class PokemonService {
     if (JSON.stringify(this.filter) !== JSON.stringify(filter)) {
       this.filter = JSON.parse(JSON.stringify(filter));
       this.filtered = rows.filter((row) => {
-        if (filter.genders.length && !filter.genders.includes(row.gender)) {
-          return false;
+        if (filter.genders.length) {
+          const match = filter.genders.find((f) => row.gender.includes(f));
+
+          if (!match) {
+            return false;
+          }
         }
 
         if (filter.name && !row.name.includes(filter.name)) {

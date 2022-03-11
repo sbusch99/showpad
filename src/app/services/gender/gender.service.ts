@@ -9,7 +9,7 @@ import { GenderModel, GenderType } from '../../models/gender.model';
 })
 export class GenderService {
   readonly url = `${this.app.url}/gender`;
-  readonly map = new Map<string, GenderType>();
+  readonly map = new Map<string, GenderType[]>();
 
   constructor(
     private readonly app: AppService,
@@ -23,7 +23,10 @@ export class GenderService {
       http.get<GenderModel>(`${url}/${gender}`).pipe(
         tap((resp) => {
           for (const detail of resp.pokemon_species_details) {
-            map.set(detail.pokemon_species.name, gender);
+            const array = map.get(detail.pokemon_species.name) || [];
+
+            array.push(gender);
+            map.set(detail.pokemon_species.name, array.sort());
           }
         }),
       ),
@@ -32,7 +35,7 @@ export class GenderService {
     return forkJoin(observables);
   }
 
-  get(name: string): GenderType {
-    return this.map.get(name) || 'genderless';
+  get(name: string): GenderType[] {
+    return this.map.get(name) || ['genderless'];
   }
 }

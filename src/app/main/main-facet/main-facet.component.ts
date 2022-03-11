@@ -73,8 +73,8 @@ export class MainFacetComponent extends BaseSubscriptions implements OnInit {
           .subscribe((v) => this.emit());
       }
 
-      value.count = pokemonService.rows.filter(
-        (r) => r.gender === gender.key,
+      value.count = pokemonService.rows.filter((r) =>
+        r.gender.includes(gender.key),
       ).length;
     }
 
