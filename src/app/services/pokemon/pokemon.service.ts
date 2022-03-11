@@ -165,6 +165,12 @@ export class PokemonService {
       case 'name':
         rows.sort((a, b) => dir * compareId(a, b));
         break;
+      case 'genders':
+        rows.sort(
+          (a, b) =>
+            dir * a.genders.toString().localeCompare(b.genders.toString()),
+        );
+        break;
       default:
         rows.sort((a, b) => {
           const aVal = a[active] ?? '';

@@ -40,7 +40,7 @@ export class MainBodyComponent
   private readonly _items: KeyValueMenuItem<PokeView>[] = [
     { key: 'name', value: { label: 'app.models.pokemon.columns.name' } },
     {
-      key: 'gender',
+      key: 'genders',
       value: { label: 'app.models.pokemon.columns.gender' },
     },
   ];

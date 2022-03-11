@@ -9,7 +9,7 @@ export interface PokeTableModel extends BaseTableModel<PokemonModel> {}
 
 export type PokeView =
   | keyof Omit<PokeTableModel, 'rawData'>
-  | 'gender'
+  | 'genders'
   | 'name';
 export type PokeStore = GenericStoreWithTable<PokeView>;
 

@@ -62,7 +62,7 @@
           <ng-container *ngSwitchCase="safeCol('name')">
             {{ safeRow(row).rawData.name | titlecase }}
           </ng-container>
-          <ng-container *ngSwitchCase="safeCol('gender')">
+          <ng-container *ngSwitchCase="safeCol('genders')">
             <span
               *ngFor="let g of safeRow(row).rawData.genders; let index = index"
             >
